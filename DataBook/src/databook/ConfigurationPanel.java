@@ -7,13 +7,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Esta clase genera un panel para configurar la aplicacion
+ * Adds all the differents configurations to the main window
  * 
- * @author MarMagnoGG
+ ***************************
+ * 
+ * @author MagnoGG
  * @since 28/04/2020 13:53
- * @version DataBook 2
  */
 class ConfigurationPanel extends JPanel{
+    private static final long serialVersionUID = 1L;
     
     private final JLabel     colorConfiguration;
     private final ColorPanel background;
@@ -22,40 +24,30 @@ class ConfigurationPanel extends JPanel{
     private final ColorPanel resalte3;
     
     private final JLabel     letraConfiguration;
-    private final LetraPanel letra;
+    private final LetterPanel letra;
     private final ColorPanel letraColor;
     
-    public ConfigurationPanel(){
-        /*//Si hay archivo de configuracion
-        if (Configuration.fileExists())
-            Configuration.setConfiguration();
-        else
-            Configuration.setConfiguration(Configuration.readFileLine(0),
-                                           Configuration.readFileLine(1),
-                                           Configuration.readFileLine(2),
-                                           Configuration.readFileLine(3),
-                                           Configuration.readFileLine(4));
-        */
-        
+    public ConfigurationPanel()
+    {        
         colorConfiguration = new JLabel("Color");
         
         background = new ColorPanel("Fondo", 
             Configuration.getDefaultBackgroundColor());
         
         resalte    = new ColorPanel("Resalte (al tocar)", 
-            Configuration.getDefaultColorResalte());
+            Configuration.getDefaultHighlightColor());
         
         resalte2   = new ColorPanel("Resalte 1",
             Configuration.getDefaultColorResalte2());
         
         resalte3   = new ColorPanel("Resalte 2",
-            Configuration.getDefaultColorResalte3());
+            Configuration.getDefaultHighlightColor3());
         
         
         letraConfiguration= new JLabel("Letra");
         
-        letra      = new LetraPanel("Letra: ", 
-            Configuration.getDefaultLetra());
+        letra      = new LetterPanel("Letra: ", 
+            Configuration.getDefaultLetter());
         
         letraColor = new ColorPanel("Color de la letra", null);
         
@@ -82,9 +74,10 @@ class ConfigurationPanel extends JPanel{
         gdc.gridy = 6;
         this.add(letraColor, gdc);
     }
-    public void refresh(){        
-        colorConfiguration.setFont(Configuration.getLetra());
-        letraConfiguration.setFont(Configuration.getLetra());
+    public void refresh()
+    {        
+        colorConfiguration.setFont(Configuration.getLetter());
+        letraConfiguration.setFont(Configuration.getLetter());
         
         background .refresh();
         resalte    .refresh();
@@ -94,11 +87,12 @@ class ConfigurationPanel extends JPanel{
         letraColor .refresh();
     }
     
-    public void setConfiguration(){
+    public void setConfiguration()
+    {
         Configuration.setBackgroundColor(background.getColorSelected());
-        Configuration.setColorResalte(resalte.getColorSelected());
-        Configuration.setColorResalte2(resalte2.getColorSelected());
-        Configuration.setColorResalte3(resalte3.getColorSelected());
-        //Configuration.setLetraColor(letraColor.getColorSelected());
+        Configuration.setHighlightColor(resalte.getColorSelected());
+        Configuration.setHighlightColor2(resalte2.getColorSelected());
+        Configuration.setHighlightColor3(resalte3.getColorSelected());
+        Configuration.setLetterColor(letraColor.getColorSelected());
     }
 }

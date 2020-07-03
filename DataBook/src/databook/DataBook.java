@@ -13,6 +13,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -20,58 +21,74 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- * Este programa está diseñado para almacenar libros
- * Esta clase muestra una ventana JFrame con los libros ya guardados y
- * deja añadir algunos nuevos.
+/** 
+ * Program designed to store books.
+ * This class show a window JFrame with the books already stored and let
+ * add new ones, search them, or configure the appareance of the app.
  * 
- * @author MarMagnoGG
+ **************************
+ * 
+ * @author MagnoGG
  * @since 28/04/2020 12:50
  * @version DataBook 2
  */
-public class DataBook extends JFrame implements ActionListener,
-                                                FocusListener ,
-                                                WindowListener{
-    
-    public static void main(String[] args) {
+public class DataBook extends JFrame implements 
+    ActionListener,
+    FocusListener ,
+    WindowListener
+{
+    private static final long serialVersionUID = 1L;
+
+    public static void main(String[] args) 
+    {
         Configuration.setDefaultConfiguration();
         
-        DataBook VentanaPrincipal= new DataBook();
-        VentanaPrincipal.setVisible(true);
+        DataBook mainWindow = new DataBook();
+        mainWindow.setVisible(true);
     }
     
     //Book
     private final ArrayList<Book> storedBooks;
     
-    public  ArrayList<Book> getStoredBooks()                {
+    public  ArrayList<Book> getStoredBooks()
+    {
         return storedBooks;
     } 
-    private boolean isStored   (String author, String title){
-        boolean output= false;
-        for (Book b : storedBooks){            
-            output= b.getAuthor().equals(author) && b.getTitle().equals(title);
+    private boolean isStored   (String author, String title)
+    {
+        boolean output = false;
+        for (Book b : storedBooks)
+        {            
+            output = b.getAuthor().equals(author) && 
+                     b.getTitle().equals(title);
             if (output)
                 break;
         }
         return output;
     }
-    public  void    removeBook (int index)                  {
+    public  void    removeBook (int index)
+    {
         storedBooks.remove(index);
         booksPanel .refresh();
     }
-    public  void    addBook    (String author, String title){
-        try{
+    public  void    addBook    (String author, String title)
+    {
+        try
+        {
             if (isStored(author, title))
-                JOptionPane.showMessageDialog(this, 
-                    "Este libro ya existe"        , 
-                    "DataBook - Mensaje"          , 
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Este libro ya existe", 
+                    "DataBook - Mensaje"  , 
                     JOptionPane.ERROR_MESSAGE);
-            else{
+            else
+            {
                 storedBooks.add(new Book(author, title));
                 booksPanel.refresh();
             }
             
-        }catch(TooLargeArgumentException e){
+        }catch(TooLargeArgumentException e)
+        {
             /*if (e.getMessage() == null || e.getMessage().isEmpty())
                 JOptionPane.showMessageDialog(this , 
                     "No se puede guardar ese libro", 
@@ -82,12 +99,14 @@ public class DataBook extends JFrame implements ActionListener,
                     e.getMessage()            , 
                     "DataBook - Mensaje"      , 
                     JOptionPane.ERROR_MESSAGE);*/
-        }catch(InvalidArgumentException e){
+        }catch(InvalidArgumentException e)
+        {
             
         }
     }
     public  void    editBook   (String author, String title, int index){
-        try{
+        try
+        {
             if ( !author.equals(storedBooks.get(index).getAuthor()) && 
                  !title .equals(storedBooks.get(index).getTitle() ) && 
                  isStored(author, title))
@@ -95,13 +114,15 @@ public class DataBook extends JFrame implements ActionListener,
                     "Este libro ya existe"        , 
                     "DataBook - Mensaje"          , 
                     JOptionPane.ERROR_MESSAGE);
-            else{
+            else
+            {
                 storedBooks.add(new Book(author, title));
                 storedBooks.remove(index);
                 booksPanel .refresh();
             }
             
-        }catch(TooLargeArgumentException e){
+        }
+        catch(TooLargeArgumentException e){
             /*if (e.getMessage() == null || e.getMessage().isEmpty())
                 JOptionPane.showMessageDialog(this , 
                     "No se puede guardar ese libro", 
@@ -122,7 +143,7 @@ public class DataBook extends JFrame implements ActionListener,
     private final CardLayout cl;
     
     //Caja de elementos
-    private final JComboBox selectSearch;
+    private final JComboBox<String> selectSearch;
     
     //Contenedores
     private final JPanel             centerMenu;
@@ -134,7 +155,8 @@ public class DataBook extends JFrame implements ActionListener,
     
     //Botones
     private final JButton setBookMenu;
-    private void  setBookMenuPressed(){
+    private void  setBookMenuPressed()
+    {
         setBookMenu          .setVisible(false);
         setSearchMenu        .setVisible(false);
         setConfigurationMenu .setVisible(false);
@@ -147,7 +169,8 @@ public class DataBook extends JFrame implements ActionListener,
     }
     
     private final JButton setSearchMenu;
-    private void  setSearchMenuPressed(){
+    private void  setSearchMenuPressed()
+    {
         setBookMenu          .setVisible(false);
         setSearchMenu        .setVisible(false);
         setConfigurationMenu .setVisible(false);
@@ -160,7 +183,8 @@ public class DataBook extends JFrame implements ActionListener,
     }
     
     private final JButton setConfigurationMenu;
-    private void  setConfigurationMenu(){
+    private void  setConfigurationMenu()
+    {
         setBookMenu          .setVisible(false);
         setSearchMenu        .setVisible(false);
         setConfigurationMenu .setVisible(false);
@@ -173,7 +197,8 @@ public class DataBook extends JFrame implements ActionListener,
     }
     
     private final JButton volverMenu;
-    private void  volverMenuPressed(){
+    private void  volverMenuPressed()
+    {
         setBookMenu          .setVisible(true);
         setSearchMenu        .setVisible(true);
         setConfigurationMenu .setVisible(true);
@@ -187,14 +212,16 @@ public class DataBook extends JFrame implements ActionListener,
     
     
     private final JButton newBook;
-    private void  newBookPressed(){
+    private void  newBookPressed()
+    {
         addBook(writeAuthor.getText(), writeTitle.getText());
         writeAuthor.setText("Autor");
         writeTitle .setText("Título");
     }
     
     private final JButton saveConfiguration;
-    private void  saveConfigurationPressed(){
+    private void  saveConfigurationPressed()
+    {
         configurationPanel.setConfiguration();
         booksPanel.refresh();
         configurationPanel.refresh();
@@ -202,7 +229,8 @@ public class DataBook extends JFrame implements ActionListener,
     }
     
     private final JButton doSearch;
-    private void  doSearchPressed(){
+    private void  doSearchPressed()
+    {
         
     }
     
@@ -211,8 +239,8 @@ public class DataBook extends JFrame implements ActionListener,
     private final JTextField writeTitle;
     private final JTextField writeSearch;
     
-    
-    private DataBook(){
+    private DataBook()
+    {
         //Configuracion de la ventana
         this.setSize(new Dimension(700, 500));
         this.setTitle("DataBook");
@@ -220,12 +248,12 @@ public class DataBook extends JFrame implements ActionListener,
         this.addWindowListener    (this);
         this.setLocationRelativeTo(this);
         this.setResizable         (true);
-        //TODO: this.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("img/iconoVentana.png")));
+        this.setIconImage(new ImageIcon(getClass().getResource("/programa/imagenes/icoApp.png")).getImage());
         
         //Inicializacion de componentes
         storedBooks          = new ArrayList<>();
         cl                   = new CardLayout();
-        selectSearch         = new JComboBox();
+        selectSearch         = new JComboBox<>();
         
         centerMenu           = new JPanel();
         southMenu            = new JPanel();
@@ -323,7 +351,8 @@ public class DataBook extends JFrame implements ActionListener,
         
         refresh();
     }
-    public void refresh(){
+    public void refresh()
+    {
         //Contenedores
         this                 .setBackground(Configuration.getBackgroundColor());
         centerMenu           .setBackground(Configuration.getBackgroundColor());
@@ -334,32 +363,33 @@ public class DataBook extends JFrame implements ActionListener,
         configurationPanel   .setBackground(Configuration.getBackgroundColor());
          
         //Botones        
-        setBookMenu          .setFont(Configuration.getLetra());
-        setSearchMenu        .setFont(Configuration.getLetra());
-        setConfigurationMenu .setFont(Configuration.getLetra());
-        volverMenu           .setFont(Configuration.getLetra()); 
-        newBook              .setFont(Configuration.getLetra());
-        doSearch             .setFont(Configuration.getLetra());
-        saveConfiguration    .setFont(Configuration.getLetra());
+        setBookMenu          .setFont(Configuration.getLetter());
+        setSearchMenu        .setFont(Configuration.getLetter());
+        setConfigurationMenu .setFont(Configuration.getLetter());
+        volverMenu           .setFont(Configuration.getLetter()); 
+        newBook              .setFont(Configuration.getLetter());
+        doSearch             .setFont(Configuration.getLetter());
+        saveConfiguration    .setFont(Configuration.getLetter());
         
-        setBookMenu          .setForeground(Configuration.getLetraColor());
-        setSearchMenu        .setForeground(Configuration.getLetraColor());
-        setConfigurationMenu .setForeground(Configuration.getLetraColor());
-        volverMenu           .setForeground(Configuration.getLetraColor());
-        newBook              .setForeground(Configuration.getLetraColor());
-        doSearch             .setForeground(Configuration.getLetraColor());
-        saveConfiguration    .setForeground(Configuration.getLetraColor());
+        setBookMenu          .setForeground(Configuration.getLetterColor());
+        setSearchMenu        .setForeground(Configuration.getLetterColor());
+        setConfigurationMenu .setForeground(Configuration.getLetterColor());
+        volverMenu           .setForeground(Configuration.getLetterColor());
+        newBook              .setForeground(Configuration.getLetterColor());
+        doSearch             .setForeground(Configuration.getLetterColor());
+        saveConfiguration    .setForeground(Configuration.getLetterColor());
         
-        writeAuthor.setFont(Configuration.getLetra());
-        writeTitle .setFont(Configuration.getLetra());
-        writeSearch.setFont(Configuration.getLetra());
+        writeAuthor.setFont(Configuration.getLetter());
+        writeTitle .setFont(Configuration.getLetter());
+        writeSearch.setFont(Configuration.getLetter());
         
-        writeAuthor.setForeground(Configuration.getLetraColor());
-        writeTitle .setForeground(Configuration.getLetraColor());
-        writeSearch.setForeground(Configuration.getLetraColor());
+        writeAuthor.setForeground(Configuration.getLetterColor());
+        writeTitle .setForeground(Configuration.getLetterColor());
+        writeSearch.setForeground(Configuration.getLetterColor());
     }
 
-    @Override public void actionPerformed (ActionEvent e) {
+    @Override public void actionPerformed (ActionEvent e)
+    {
         if (e.getSource() == setBookMenu)
             this.setBookMenuPressed();
         
@@ -381,7 +411,8 @@ public class DataBook extends JFrame implements ActionListener,
         if (e.getSource() == saveConfiguration)
             this.saveConfigurationPressed();
     }
-    @Override public void focusGained     (FocusEvent e)  {
+    @Override public void focusGained     (FocusEvent e)
+    {
         if (e.getSource() == writeAuthor && 
                 writeAuthor.getText().equals("Autor"))
             writeAuthor.setText(null);
@@ -390,7 +421,8 @@ public class DataBook extends JFrame implements ActionListener,
                 writeTitle.getText().equals("Título"))
             writeTitle.setText(null);
     }
-    @Override public void focusLost       (FocusEvent e)  {
+    @Override public void focusLost       (FocusEvent e)
+    {
         if  (e.getSource() == writeAuthor && 
                 writeAuthor.getText().isEmpty())
             writeAuthor.setText("Autor");
@@ -399,9 +431,8 @@ public class DataBook extends JFrame implements ActionListener,
                 writeTitle.getText().isEmpty())
             writeTitle.setText("Título");
     }
-    
-    @Override public void windowClosing     (WindowEvent e) {/*TODO: guardar en archivo*/}
-    //Implementados vacios que no se usan
+    @Override public void windowClosing     (WindowEvent e){/*TODO: guardar en archivo*/}
+    //Implementations not used
     @Override public void windowOpened      (WindowEvent e) {}
     @Override public void windowClosed      (WindowEvent e) {}
     @Override public void windowIconified   (WindowEvent e) {}

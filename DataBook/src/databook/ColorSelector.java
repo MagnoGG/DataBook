@@ -3,12 +3,15 @@ package databook;
 import javax.swing.JDialog;
 
 /**
- * Esta clase genera una ventana para seleccionar un color
+ * Open a Window with a panel to select a specific color
  * 
- * @author MarMagnoGG
+ **************************
+ * 
+ * @author MagnoGG
  * @since 11/05/2020 16:50
- * @version DataBook 2
  */
-public class ColorSelector extends JDialog{
-    //ColorSelectorInformation c= new ColorSelectorInformation();
+public class ColorSelector extends JDialog
+{
+    private static final long serialVersionUID = 1L;
+    //TODO
 }

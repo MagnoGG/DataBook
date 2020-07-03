@@ -8,21 +8,23 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
- * Esta clase es un panel que mostrara los paneles con cada
- * libro individualmente
+ * Panel which shows all the BookPanels.
  * 
- * @author MarMagnoGG
+ ***************************
+ * 
+ * @author MagnoGG
  * @since 28/04/2020 13:25
- * @version DataBook 2
  */
-public class BooksPanel extends JScrollPane{
+public class BooksPanel extends JScrollPane
+{
+    private static final long serialVersionUID = 1L;
     
-    private final JPanel    panel;
+    private final JPanel panel;
     private final JTextArea advice;
     private final DataBook  parent;
     
-    public BooksPanel(DataBook parent){
-        
+    public BooksPanel(DataBook parent)
+    {
         this.panel  = new JPanel();
         this.advice = new JTextArea();
         this.parent = parent;
@@ -36,25 +38,27 @@ public class BooksPanel extends JScrollPane{
         
         refresh();
     }
-    public void refresh(){
-        
+    public void refresh()
+    {
         GridBagConstraints gdc= new GridBagConstraints();
         
-        advice.setFont(Configuration.getLetra());
+        advice.setFont(Configuration.getLetter());
         advice.setBackground(Configuration.getBackgroundColor());
-        advice.setForeground(Configuration.getLetraColor());
+        advice.setForeground(Configuration.getLetterColor());
+        panel .setBackground(Configuration.getBackgroundColor());
         
-        panel.setBackground(Configuration.getBackgroundColor());
-        
-        if (parent.getStoredBooks().isEmpty()){
+        if (parent.getStoredBooks().isEmpty())
+        {
             panel.removeAll();
             panel.add(advice, gdc);
-        
-        }else{
-            //Limpiamos todo lo que tenemos
+        }
+        else
+        {
+            //Clear the panel
             panel.removeAll();
-            int contador= 0;
+            int c = 0;
             
+            //Redisplay the components
             gdc.anchor  = GridBagConstraints.PAGE_START;
             gdc.fill    = GridBagConstraints.HORIZONTAL;
             gdc.weightx = 1;
@@ -62,16 +66,17 @@ public class BooksPanel extends JScrollPane{
             
             gdc.insets  = new Insets(0, 30, 0, 30);
             
-            //Volvemos preparar todo
-            for (Book b : parent.getStoredBooks()){
-                gdc.gridwidth= contador - 1;
-                gdc.gridy = contador;
+            for (Book b : parent.getStoredBooks())
+            {
+                gdc.gridwidth = c - 1;
+                gdc.gridy     = c;
                 
-                panel.add(new BookPanel(parent, 
-                                    ++contador,
-                                 b.getAuthor(),
-                                 b.getTitle()),
-                                          gdc);
+                panel.add(new BookPanel(
+                    parent,
+                    ++c,
+                    b.getAuthor(),
+                    b.getTitle()),
+                    gdc);
             }
         }
         this.paintAll(this.getGraphics());

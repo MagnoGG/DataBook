@@ -4,105 +4,136 @@ import java.awt.Color;
 import java.awt.Font;
 
 /**
- * Esta clase guarda los datos de configuracion del usuario
- * (Apariencia)
+ * Store the user configuration (appareance)
  * 
- * @author MarMagnoGG
+ *************************
+ * 
+ * LETTER:
+ *  · Font type (also bold and italic)
+ *  · Letter foreground color
+ *  To add:
+ *  · Letter background color
+ * 
+ * COLOR:
+ *  · Blackground color
+ *  · Highlight color 1: when mouse touches
+ *  · Highlight color 2: alternative color 1
+ *  · Highlight color 3: alternative color 2
+ * 
+ *************************
+ * 
+ * @author MagnoGG
  * @since 06/05/2020 13:50
- * @version DataBook 2
  */
-public class Configuration {
-    
-    public static void setConfiguration(boolean verticalMenu       ,
-                                        Font paramLetra            ,
-                                        Color paramLetraColor      ,
-                                        Color paramBackgroundColor ,
-                                        Color paramColorResalte    ,
-                                        Color paramColorResalte2   ,
-                                        Color paramColorResalte3)
-                                                {
-        setLetra(paramLetra);
-        setLetraColor(paramLetraColor);
+public class Configuration 
+{
+    public static void setConfiguration(
+        boolean verticalMenu       ,
+        Font paramLetra            ,
+        Color paramLetraColor      ,
+        Color paramBackgroundColor ,
+        Color paramColorResalte    ,
+        Color paramColorResalte2   ,
+        Color paramColorResalte3)
+    {
+        setLetter(paramLetra);
+        setLetterColor(paramLetraColor);
         setBackgroundColor(paramBackgroundColor);
-        setColorResalte(paramColorResalte);
-        setColorResalte2(paramColorResalte2);
-        setColorResalte3(paramColorResalte3);
+        setHighlightColor(paramColorResalte);
+        setHighlightColor2(paramColorResalte2);
+        setHighlightColor3(paramColorResalte3);
     }
-    public static void setDefaultConfiguration(){
-        setLetra          (getDefaultLetra());
-        setLetraColor     (getDefaultLetraColor());
-        setBackgroundColor(getDefaultBackgroundColor());
-        setColorResalte   (getDefaultColorResalte ());
-        setColorResalte2  (getDefaultColorResalte2());
-        setColorResalte3  (getDefaultColorResalte3());
+    public static void setDefaultConfiguration()
+    {
+        setLetter          (getDefaultLetter());
+        setLetterColor     (getDefaultLetterColor());
+        setBackgroundColor (getDefaultBackgroundColor());
+        setHighlightColor  (getDefaultHighlightColor());
+        setHighlightColor2 (getDefaultColorResalte2());
+        setHighlightColor3 (getDefaultHighlightColor3());
     }
     
-    //TODO: private static boolean resalteColor;
-    
-    private static Font letra;
-    public  static Font getLetra()                   {
-        return letra;
+    private static Font letter;
+    public  static Font getLetter()
+    {
+        return letter;
     }
-    public  static Font getDefaultLetra()            {
+    public  static Font getDefaultLetter()
+    {
         return new Font("Consolas", 0, 12);
     }
-    public  static void setLetra(Font paramLetra)    {
-        letra= paramLetra;
+    public  static void setLetter(Font paramLetra)
+    {
+        letter = paramLetra;
     }
     
-    private static Color letraColor;
-    public  static Color getLetraColor()             {
-        return letraColor;
+    private static Color letterColor;
+    public  static Color getLetterColor()
+    {
+        return letterColor;
     }
-    public  static Color getDefaultLetraColor()      {
+    public  static Color getDefaultLetterColor()
+    {
         return new Color (0, 0, 0);
     }
-    public  static void  setLetraColor(Color c)      {
-        letraColor= c;
+    public  static void  setLetterColor(Color c)
+    {
+        letterColor = c;
     }
     
     private static Color backgroundColor;
-    public  static Color getBackgroundColor()        {
+    public  static Color getBackgroundColor()
+    {
         return backgroundColor;
     }
-    public  static Color getDefaultBackgroundColor() {
+    public  static Color getDefaultBackgroundColor()
+    {
         return new Color (255, 255, 255);
     }
-    public  static void  setBackgroundColor(Color c) {
-        backgroundColor= c;
+    public  static void  setBackgroundColor(Color c)
+    {
+        backgroundColor = c;
     }
     
-    private static Color colorResalte;
-    public  static Color getColorResalte()           {
-        return colorResalte;
+    private static Color highlightColor;
+    public  static Color getHighlightColor()
+    {
+        return highlightColor;
     }
-    public  static Color getDefaultColorResalte()    {
+    public  static Color getDefaultHighlightColor()
+    {
         return new Color(255, 0, 0);
     }
-    public  static void  setColorResalte(Color c)    {
-        colorResalte= c;
+    public  static void  setHighlightColor(Color c)
+    {
+        highlightColor = c;
     }
     
-    private static Color colorResalte2;
-    public  static Color getColorResalte2()          {
-        return colorResalte2;
+    private static Color highlightColor2;
+    public  static Color getHighlightColor2()
+    {
+        return highlightColor2;
     }
-    public  static Color getDefaultColorResalte2()   {
+    public  static Color getDefaultColorResalte2()
+    {
         return new Color(100, 100, 100);
     }
-    public  static void  setColorResalte2(Color c)   {
-        colorResalte2= c;
+    public  static void  setHighlightColor2(Color c)
+    {
+        highlightColor2 = c;
     }
     
-    private static Color colorResalte3;
-    public  static Color getColorResalte3()          {
-        return colorResalte3;
+    private static Color highlightColor3;
+    public  static Color getHighlightColor3()
+    {
+        return highlightColor3;
     }
-    public  static Color getDefaultColorResalte3()   {
+    public  static Color getDefaultHighlightColor3()
+    {
         return new Color (150, 150, 150);
     }
-    public  static void  setColorResalte3(Color c)   {
-        colorResalte3= c;
+    public  static void  setHighlightColor3(Color c)
+    {
+        highlightColor3 = c;
     }
-    
 }

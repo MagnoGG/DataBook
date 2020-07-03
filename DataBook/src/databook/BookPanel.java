@@ -12,14 +12,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
- * Esta clase genera un panel que mostrar 1 libro
+ * Generates a Panel which show the information of a book.
+ *   ---------------------------------------------
+ *  | Book Index | Author | Title | Edit (Button) |
+ *   ---------------------------------------------
+ * On the edit mode, both author and title switch for a text 
+ * field to rename the book.
+ *   --------------------------------------------------------------------------------------------
+ *  | Book Index | Edit Author | Edit Title | Leave Editing Mode (Button) | Remove Book (Button) |
+ *   --------------------------------------------------------------------------------------------
+ *************************
  * 
- * @author MarMagnoGG
+ * @author MagnoGG
  * @since 28/04/2020 13:53
- * @version DataBook 2
  */
-public class BookPanel extends JPanel implements ActionListener, MouseListener{
-    
+public class BookPanel extends JPanel implements ActionListener, MouseListener
+{
+    private static final long serialVersionUID = 1L;
+
     private final DataBook parent;
     
     private final JLabel bookIndex;
@@ -29,9 +39,12 @@ public class BookPanel extends JPanel implements ActionListener, MouseListener{
     private final JTextField newAuthor;
     private final JTextField newTitle;
     
+    //Switch between edit and view mode
     private final JButton editBook;
-    private void  editBookPressed(){
-        if (editing){
+    private void  editBookPressed()
+    {
+        if (editing)
+        {
             editing= false;
             editBook.setText("Editar");
             
@@ -42,10 +55,13 @@ public class BookPanel extends JPanel implements ActionListener, MouseListener{
             shownAuthor.setVisible(true);
             shownTitle .setVisible(true);            
             
-            parent.editBook(newAuthor.getText(), 
-                            newTitle .getText(), 
-                            Integer  .valueOf(bookIndex.getText()) - 1);
-        }else{
+            parent.editBook(
+                newAuthor.getText(), 
+                newTitle .getText(), 
+                Integer  .valueOf(bookIndex.getText()) - 1);
+        }
+        else
+        {
             editing= true;
             editBook.setText("Guardar");
             
@@ -65,14 +81,12 @@ public class BookPanel extends JPanel implements ActionListener, MouseListener{
     
     private boolean editing;
     
-    private void setColor(){
-        if (Integer.parseInt(bookIndex.getText())%2 == 0)
-            this.setBackground(Configuration.getColorResalte2());
-        else
-            this.setBackground(Configuration.getColorResalte3());
-    }
-    
-    public BookPanel(DataBook giveParent, int giveIndex, String giveAuthor, String giveTitle){
+    public BookPanel(
+            DataBook giveParent, 
+            int giveIndex,
+            String giveAuthor, 
+            String giveTitle)
+    {
         parent      = giveParent;
         bookIndex   = new JLabel(String.valueOf(giveIndex));
         shownAuthor = new JLabel(giveAuthor);
@@ -116,40 +130,53 @@ public class BookPanel extends JPanel implements ActionListener, MouseListener{
         
         refresh();
     }
-    public void refresh(){
+    public void refresh()
+    {
         setColor();
         
-        editBook  .setFont(Configuration.getLetra());
-        removeBook.setFont(Configuration.getLetra());
+        editBook  .setFont(Configuration.getLetter());
+        removeBook.setFont(Configuration.getLetter());
         
-        bookIndex  .setFont(Configuration.getLetra());
-        shownAuthor.setFont(Configuration.getLetra());
-        shownTitle .setFont(Configuration.getLetra());
-        newAuthor  .setFont(Configuration.getLetra());
-        newTitle   .setFont(Configuration.getLetra());
+        bookIndex  .setFont(Configuration.getLetter());
+        shownAuthor.setFont(Configuration.getLetter());
+        shownTitle .setFont(Configuration.getLetter());
+        newAuthor  .setFont(Configuration.getLetter());
+        newTitle   .setFont(Configuration.getLetter());
         
-        bookIndex  .setForeground(Configuration.getLetraColor());
-        shownAuthor.setForeground(Configuration.getLetraColor());
-        shownTitle .setForeground(Configuration.getLetraColor());
-        newAuthor  .setForeground(Configuration.getLetraColor());
-        newTitle   .setForeground(Configuration.getLetraColor());
+        bookIndex  .setForeground(Configuration.getLetterColor());
+        shownAuthor.setForeground(Configuration.getLetterColor());
+        shownTitle .setForeground(Configuration.getLetterColor());
+        newAuthor  .setForeground(Configuration.getLetterColor());
+        newTitle   .setForeground(Configuration.getLetterColor());
     }
     
-    @Override public void actionPerformed(ActionEvent e) {
+    private void setColor()
+    {
+        if (Integer.parseInt(bookIndex.getText())%2 == 0)
+            this.setBackground(Configuration.getHighlightColor2());
+        
+        else
+            this.setBackground(Configuration.getHighlightColor3());
+    }
+    
+    @Override public void actionPerformed(ActionEvent e)
+    {
         if (e.getSource() == editBook)
             this.editBookPressed();
+        
         if (e.getSource() == removeBook)
             parent.removeBook(Integer.valueOf(bookIndex.getText()) - 1);
     }
-    @Override public void mouseEntered   (MouseEvent e)  {
-        this.setBackground(Configuration.getColorResalte());
+    @Override public void mouseEntered   (MouseEvent e) 
+    {
+        this.setBackground(Configuration.getHighlightColor());
     }
-    @Override public void mouseExited    (MouseEvent e)  {
+    @Override public void mouseExited    (MouseEvent e) 
+    {
         setColor();
     }
     
     @Override public void mouseClicked (MouseEvent e) {}
     @Override public void mousePressed (MouseEvent e) {}
     @Override public void mouseReleased(MouseEvent e) {}
-    
 }
